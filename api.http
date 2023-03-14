@@ -1,3 +1,4 @@
+// Auth
 POST http://localhost:3001/api/v1/auth/register
 Content-Type: application/json
 
@@ -16,15 +17,22 @@ Content-Type: application/json
     "password": "Admin@123"
 }
 
+
+// User
 ###
 GET http://localhost:3001/api/v1/user
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InNvbiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjc4ODE2ODY2LCJleHAiOjE2ODE0MDg4NjZ9.1QnsUn_pDmmkZnlmAm_WdgiPyXEA1PZAR1WUSfbGAdA
 
+
+// Category
 ###
 POST http://localhost:3001/api/v1/category/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InNvbiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjc4ODE2ODY2LCJleHAiOjE2ODE0MDg4NjZ9.1QnsUn_pDmmkZnlmAm_WdgiPyXEA1PZAR1WUSfbGAdA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc4ODE5Mzg2LCJleHAiOjE2ODE0MTEzODZ9.MggyANh4r4gI_lEmdHUFoMFq0XG4PpujZS7azXGYxsQ
 
 {
-    "name": "Trinh thám",
+    "name": "Ngôn tình"
 }
+
+###
+GET  http://localhost:3001/api/v1/category/get

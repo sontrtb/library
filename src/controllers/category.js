@@ -1,5 +1,18 @@
 const category = require("../services/category");
 
+const getAll = async (req, res) => {
+    try {
+        const response = await category.getAll()
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            errCode: 1,
+            mess: "Server Error"
+        })
+    }
+}
+
+
 const create = async (req, res) => {
     try {
         const {name} = req.body;
@@ -18,4 +31,4 @@ const create = async (req, res) => {
     }
 }
 
-module.exports = {create}
+module.exports = {getAll, create}

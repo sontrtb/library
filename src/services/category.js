@@ -1,5 +1,24 @@
 const db = require("../models")
 
+const getAll = () => new Promise(async (resolve, reject) => {
+    try {
+        const category = await db.Category.findAll();
+        const categoryConvert = category.map(item => {
+            return {
+                value: item.id,
+                label: item.name
+            }
+        })
+        resolve({
+            erroCode: 0,
+            mess: "Lấy dữ liệu thành công",
+            data: categoryConvert
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
 const create = ({name}) => new Promise(async (resolve, reject) => {
     try {
         const [category, created] = await db.Category.findOrCreate({
@@ -25,4 +44,4 @@ const create = ({name}) => new Promise(async (resolve, reject) => {
     }
 })
 
-module.exports = {create}
+module.exports = {create, getAll}
