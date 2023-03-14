@@ -3,21 +3,20 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 const saltRounds = 10;
-const keyToken = "hello"
 const timeToken  = '30d'
 
 const hashPassword = (password) => bcrypt.hashSync(password, saltRounds);
 
 const comparePassword = (password, passwordHash) => bcrypt.compareSync(password, passwordHash)
 
-const createToken = (data) => {
+const createToken = (data, isRegister) => {
     const token = jwt.sign(
         {
           id: data.id,
           name: data.name,
-          role: data.roleCode
+          role: isRegister ? "user": data.role
         },
-        keyToken,
+        process.env.KEY_TOKEN,
         { expiresIn: timeToken }
     )
 
@@ -45,7 +44,7 @@ const register = ({name, userName, password}) => new Promise(async (resolve, rej
                 erroCode: 0,
                 mess: "Đăng ký thành công",
                 data: {
-                    token: createToken(user)
+                    token: createToken(user, true)
                 }
             })
           }

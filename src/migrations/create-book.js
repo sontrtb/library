@@ -1,32 +1,28 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
-const bcrypt = require("bcrypt")
-
-const saltRounds = 10;
-const hashPassword = (password) => bcrypt.hashSync(password, saltRounds);
-
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Books', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      title: {
         type: Sequelize.STRING
       },
-      role: {
-        allowNull: false,
-        type: Sequelize.STRING,
-        defaultValue: "user"
-      },
-      password: {
+      introduce: {
         type: Sequelize.STRING
       },
-      userName: {
+      image: {
         type: Sequelize.STRING
+      },
+      content: {
+        type: Sequelize.STRING
+      },
+      categoryId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -37,17 +33,8 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
-
-    return queryInterface.bulkInsert('Users', [{
-      name: 'admin',
-      role: 'admin',
-      userName: 'admin',
-      password: hashPassword("Admin@123"),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Books');
   }
 };

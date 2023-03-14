@@ -2,8 +2,8 @@ POST http://localhost:3001/api/v1/auth/register
 Content-Type: application/json
 
 {
-    "userName": "ssdssdtest",
-    "password": "1231bnbn23",
+    "userName": "son",
+    "password": "123123",
     "name": "son"
 }
 
@@ -12,6 +12,19 @@ POST http://localhost:3001/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "userName": "ssdssdtest",
-    "password": "1231bnbn23"
+    "userName": "admin",
+    "password": "Admin@123"
+}
+
+###
+GET http://localhost:3001/api/v1/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InNvbiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjc4ODE2ODY2LCJleHAiOjE2ODE0MDg4NjZ9.1QnsUn_pDmmkZnlmAm_WdgiPyXEA1PZAR1WUSfbGAdA
+
+###
+POST http://localhost:3001/api/v1/category/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InNvbiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjc4ODE2ODY2LCJleHAiOjE2ODE0MDg4NjZ9.1QnsUn_pDmmkZnlmAm_WdgiPyXEA1PZAR1WUSfbGAdA
+
+{
+    "name": "Trinh thám",
 }
