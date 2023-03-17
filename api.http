@@ -36,3 +36,24 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 
 ###
 GET  http://localhost:3001/api/v1/category/get
+
+// Book
+###
+GET  http://localhost:3001/api/v1/book/
+###
+POST http://localhost:3001/api/v1/book/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc4ODE5Mzg2LCJleHAiOjE2ODE0MTEzODZ9.MggyANh4r4gI_lEmdHUFoMFq0XG4PpujZS7azXGYxsQ
+
+{
+    "title": "Hello",
+    "image": "asasas",
+    "content": "asasa",
+    "categoryId": 1,
+    "introduce": "sasasasasas"
+}
+
+###
+DELETE  http://localhost:3001/api/v1/book/delete/7
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc4ODE5Mzg2LCJleHAiOjE2ODE0MTEzODZ9.MggyANh4r4gI_lEmdHUFoMFq0XG4PpujZS7azXGYxsQ
