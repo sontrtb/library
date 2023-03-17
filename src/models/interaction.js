@@ -10,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Interaction.belongsTo(models.Reaction, {foreignKey: "reactionId", targetKey: "id", as: "reactionData"});
+      Interaction.belongsTo(models.Book, {foreignKey: "bookId", targetKey: "id", as: "bookData"});
+      Interaction.belongsTo(models.User, {foreignKey: "userId", targetKey: "id", as: "userData"});
     }
   }
   Interaction.init({
     reactionId: DataTypes.INTEGER,
     bookId: DataTypes.INTEGER,
-    interactionId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Interaction',

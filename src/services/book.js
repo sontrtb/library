@@ -21,6 +21,66 @@ const getAll = () => new Promise(async (resolve, reject) => {
     }
 })
 
+const getDetail = (id) => new Promise(async (resolve, reject) => {
+    try {
+        const bookInfor = db.Book.findByPk(
+            id,
+            {
+                attributes: ["id", "title", "image", "content", "introduce"]
+            },
+            {
+                include: [
+                    {
+                        model: db.Category,
+                        as: "categoryData",
+                        attributes: ["id", "name"]
+                    },
+                ]
+            }
+        );
+
+        const interaction = db.Interaction.findAll(
+            {
+                where: { bookId: id },
+                include: [
+                    {
+                        model: db.Reaction,
+                        as: "reactionData",
+                        attributes: ["id", "name"]
+                    },
+                    {
+                        model: db.User,
+                        as: "userData",
+                        attributes: ["name"]
+                    }
+                ]
+            }
+        );
+
+        const results = await Promise.all([bookInfor, interaction]);
+        const interactionConvert = results[1].map(item => {
+            return {
+                id: item.id,
+                idReaction: item.reactionData.id,
+                name: item.reactionData.name,
+                userName: item.userData.name
+            }
+        })
+        const response = {
+            bookInfor: results[0],
+            interaction: interactionConvert,
+        }
+        
+        resolve({
+            erroCode: 0,
+            mess: "Lấy dữ liệu thành công",
+            data: response
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
 const create = (data) => new Promise(async(resolve, reject) => {
     const {title, image, content, categoryId, introduce} = data;
     try {
@@ -68,6 +128,7 @@ const deleteBook = (id) => new Promise(async(resolve, reject) => {
 
 module.exports =  {
     getAll,
+    getDetail,
     create,
     deleteBook
 }

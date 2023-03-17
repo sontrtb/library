@@ -12,6 +12,19 @@ const getAll = async (req, res) => {
     }
 }
 
+const getDatail = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const response = await book.getDetail(id)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            errCode: 1,
+            mess: "Server Error"
+        })
+    }
+}
+
 const create = async (req, res) => {
     try {
         const response = await book.create(req.body)
@@ -39,6 +52,7 @@ const deleteBook = async (req, res) => {
 
 module.exports =  {
     getAll,
+    getDatail,
     create,
     deleteBook
 }

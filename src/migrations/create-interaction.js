@@ -10,12 +10,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       reactionId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       bookId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
-      interactionId: {
+      userId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

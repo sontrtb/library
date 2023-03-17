@@ -4,6 +4,7 @@ const verifyToken = require("../middlewares/verify-token");
 const book = require("../controllers/book");
 
 router.get("/", book.getAll)
+router.get("/:id", book.getDatail)
 
 router.use(verifyToken)
 router.use(verifyRole.verifyRoleAdmin)
