@@ -39,7 +39,33 @@ const getDetail = (id) => new Promise(async (resolve, reject) => {
             }
         );
 
-        const interaction = db.Interaction.findAll(
+        const reactionQuantity = db.QuantityInteraction.findOne({
+            where: {
+                bookId: id,
+            },
+            attributes: ["watchQuantity", "dislikeQuantity", "likeQuantity"]
+        });
+
+        const results = await Promise.all([bookInfor, reactionQuantity]);
+  
+        const response = {
+            ...results[0].dataValues,
+            ...results[1].dataValues,
+        }
+        
+        resolve({
+            erroCode: 0,
+            mess: "Lấy dữ liệu thành công",
+            data: response
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
+const getInteraction = (id) => new Promise(async (resolve, reject) => {
+    try {
+        const interaction = await db.Interaction.findAll(
             {
                 where: { bookId: id },
                 include: [
@@ -57,29 +83,25 @@ const getDetail = (id) => new Promise(async (resolve, reject) => {
             }
         );
 
-        const results = await Promise.all([bookInfor, interaction]);
-        const interactionConvert = results[1].map(item => {
+        const interactionConvert = interaction?.map(item => {
             return {
                 id: item.id,
-                idReaction: item.reactionData.id,
-                name: item.reactionData.name,
-                userName: item.userData.name
+                idReaction: item.reactionData?.id,
+                name: item?.reactionData?.name,
+                userName: item?.userData?.name
             }
         })
-        const response = {
-            bookInfor: results[0],
-            interaction: interactionConvert,
-        }
-        
+
         resolve({
             erroCode: 0,
             mess: "Lấy dữ liệu thành công",
-            data: response
+            data: interactionConvert
         })
     } catch (error) {
         reject(error)
     }
 })
+
 
 const create = (data) => new Promise(async(resolve, reject) => {
     const {title, image, content, categoryId, introduce} = data;
@@ -91,12 +113,18 @@ const create = (data) => new Promise(async(resolve, reject) => {
             categoryId: categoryId,
             introduce: introduce
         })
+
+        await db.QuantityInteraction.create({
+            bookId: bookInsert.dataValues.id
+        })
+
         resolve({
             erroCode: 0,
             mess: "Thêm sách thành công",
             data: bookInsert
         })
     } catch (error) {
+        console.log("error", error)
         reject(error)
     }
 })
@@ -130,5 +158,6 @@ module.exports =  {
     getAll,
     getDetail,
     create,
-    deleteBook
+    deleteBook,
+    getInteraction
 }

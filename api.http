@@ -21,17 +21,17 @@ Content-Type: application/json
 // User
 ###
 GET http://localhost:3001/api/v1/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InNvbiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjc4ODE2ODY2LCJleHAiOjE2ODE0MDg4NjZ9.1QnsUn_pDmmkZnlmAm_WdgiPyXEA1PZAR1WUSfbGAdA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc5MTY0MDU3LCJleHAiOjE2ODE3NTYwNTd9.r_hMxYl5yKx9-3LXF7HUKU8Zlvk0kLTRE0lvIKZrkcc
 
 
 // Category
 ###
 POST http://localhost:3001/api/v1/category/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc4ODE5Mzg2LCJleHAiOjE2ODE0MTEzODZ9.MggyANh4r4gI_lEmdHUFoMFq0XG4PpujZS7azXGYxsQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc5MTY0MDU3LCJleHAiOjE2ODE3NTYwNTd9.r_hMxYl5yKx9-3LXF7HUKU8Zlvk0kLTRE0lvIKZrkcc
 
 {
-    "name": "Ngôn tình"
+    "name": "Hài hước"
 }
 
 ###
@@ -39,14 +39,21 @@ GET  http://localhost:3001/api/v1/category/get
 
 // Book
 ###
-GET  http://localhost:3001/api/v1/book/
+GET  http://localhost:3001/api/v1/book
+
+###
+GET  http://localhost:3001/api/v1/book/1
+
+###
+GET  http://localhost:3001/api/v1/book/interaction/1
+
 ###
 POST http://localhost:3001/api/v1/book/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc4ODE5Mzg2LCJleHAiOjE2ODE0MTEzODZ9.MggyANh4r4gI_lEmdHUFoMFq0XG4PpujZS7azXGYxsQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc5MTY0MDU3LCJleHAiOjE2ODE3NTYwNTd9.r_hMxYl5yKx9-3LXF7HUKU8Zlvk0kLTRE0lvIKZrkcc
 
 {
-    "title": "Hello",
+    "title": "Hasaseasasasasllo",
     "image": "asasas",
     "content": "asasa",
     "categoryId": 1,
@@ -56,4 +63,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 ###
 DELETE  http://localhost:3001/api/v1/book/delete/7
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc4ODE5Mzg2LCJleHAiOjE2ODE0MTEzODZ9.MggyANh4r4gI_lEmdHUFoMFq0XG4PpujZS7azXGYxsQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc5MTY0MDU3LCJleHAiOjE2ODE3NTYwNTd9.r_hMxYl5yKx9-3LXF7HUKU8Zlvk0kLTRE0lvIKZrkcc
+
+// Interaction
+###
+POST http://localhost:3001/api/v1/interaction/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc5MTY0MDU3LCJleHAiOjE2ODE3NTYwNTd9.r_hMxYl5yKx9-3LXF7HUKU8Zlvk0kLTRE0lvIKZrkcc
+
+{
+    "reactionId": 2,
+    "bookId": 1
+}
