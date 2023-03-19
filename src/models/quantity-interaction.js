@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      QuantityInteraction.belongsTo(models.Category, {foreignKey: "bookId", targetKey: "id", as: "bookData"})
+      QuantityInteraction.belongsTo(models.Book, {foreignKey: "bookId", targetKey: "id", as: "bookData"})
     }
   }
   QuantityInteraction.init({
