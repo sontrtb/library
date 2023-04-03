@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "freedb_library_root",
+    "password": "rsuxA?4@rGY!p9S",
+    "database": "freedb_library_sontrtb",
+    "host": "sql.freedb.tech",
+    "dialect": "mysql",
+    "logging": false,
+    "timezone": "+07:00"
+  },
+  "test": {
+    "username": "freedb_library_root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "freedb_library_root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
