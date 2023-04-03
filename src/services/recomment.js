@@ -89,8 +89,8 @@ const getPercentAll = () => new Promise(async (resolve, reject) => {
         const allQuantity = await Promise.all([likeQuantity, dislikeQuantity, watchQuantity])
 
         const dataConvert = {
-            percentLikeWatch: allQuantity[0]/allQuantity[3] * 100,
-            percentDislikeWatch: allQuantity[1]/allQuantity[3] * 100,
+            percentLikeWatch: allQuantity[0]/allQuantity[2] * 100,
+            percentDislikeWatch: allQuantity[1]/allQuantity[2] * 100,
         }
 
         resolve({
@@ -108,5 +108,4 @@ const getPercentAll = () => new Promise(async (resolve, reject) => {
 module.exports = {
     getTopInteraction,
     getPercentAll
-
 }
