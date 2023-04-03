@@ -1,5 +1,6 @@
 const db = require("../models")
 
+// top 3 like, dislike, watch
 const getTopInteraction = () => new Promise(async (resolve, reject) => {
     try {
         const topLike = db.QuantityInteraction.findAll({
@@ -79,4 +80,33 @@ const getTopInteraction = () => new Promise(async (resolve, reject) => {
     }
 })
 
-module.exports = {getTopInteraction}
+const getPercentAll = () => new Promise(async (resolve, reject) => {
+    try {
+        const likeQuantity = db.QuantityInteraction.sum("likeQuantity")
+        const dislikeQuantity = db.QuantityInteraction.sum("dislikeQuantity")
+        const watchQuantity = db.QuantityInteraction.sum("watchQuantity")
+    
+        const allQuantity = await Promise.all([likeQuantity, dislikeQuantity, watchQuantity])
+
+        const dataConvert = {
+            percentLikeWatch: allQuantity[0]/allQuantity[3] * 100,
+            percentDislikeWatch: allQuantity[1]/allQuantity[3] * 100,
+        }
+
+        resolve({
+            erroCode: 0,
+            mess: "Lấy dữ liệu thành công",
+            data: dataConvert
+        })
+    
+    } catch (error) {
+        console.log("error", error)
+        reject(error)
+    }
+})
+
+module.exports = {
+    getTopInteraction,
+    getPercentAll
+
+}

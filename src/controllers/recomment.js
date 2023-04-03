@@ -12,4 +12,19 @@ const getTopInteraction = async (req, res) => {
     }
 }
 
-module.exports = {getTopInteraction}
+const getPercentAll = async (req, res) => {
+    try {
+        const response = await recoment.getPercentAll()
+        return res.status(200).json(response) 
+    } catch (error) {
+        return res.status(500).json({
+            errCode: 1,
+            mess: "Server Error"
+        })
+    }
+}
+
+module.exports = {
+    getTopInteraction,
+    getPercentAll
+}
