@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "123456",
-    "database": "libarary",
+    "database": "library",
     "host": "3306",
     "dialect": "mysql",
     "logging": false,
@@ -11,14 +11,14 @@
   "test": {
     "username": "root",
     "password": "123456",
-    "database": "libarary",
+    "database": "library",
     "host": "3306",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": "123456",
-    "database": "libarary",
+    "database": "library",
     "host": "3306",
     "dialect": "mysql"
   }
