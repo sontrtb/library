@@ -3,9 +3,8 @@
     "username": "root",
     "password": "123456",
     "database": "library",
-    "host": "3306",
+    "host": "127.0.0.1",
     "dialect": "mysql",
-    "logging": false,
     "timezone": "+07:00"
   },
   "test": {
