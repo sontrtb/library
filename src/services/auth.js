@@ -72,7 +72,8 @@ const login = ({userName, password}) => new Promise(async (resolve, reject) => {
                 erroCode: checkPassword ? 0 : 1,
                 mess: checkPassword ? "Đăng nhập thành công" : "Sai mật khẩu",
                 data: checkPassword ? {
-                    token: createToken(user)
+                    token: createToken(user),
+                    name: user.name
                 } : undefined
             })
           }

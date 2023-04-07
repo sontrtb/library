@@ -1,4 +1,5 @@
 const db = require("../models")
+const { Op } = require("sequelize");
 
 // top 3 like, dislike, watch
 const getTopInteraction = () => new Promise(async (resolve, reject) => {
@@ -80,6 +81,91 @@ const getTopInteraction = () => new Promise(async (resolve, reject) => {
     }
 })
 
+// list like, dislike, watch user
+const getTopInteractionUser = (userId) => new Promise(async (resolve, reject) => {
+    try {
+        const interaction = await db.Interaction.findAll(
+            {
+                where: { userId: userId },
+                include: [
+                    {
+                        model: db.Book,
+                        as: "bookData",
+                        attributes: ["id", "title", "introduce", "image", "content", "categoryId"]
+                    },
+                ]
+            }
+        );
+
+        const arrLike = [];
+        const arrDislike = [];
+        const arrWatch = [];
+        interaction.forEach(element => {
+            if(element.reactionId === 1) {
+                arrLike.push(element.bookData)
+            }
+            else if(element.reactionId === 2) {
+                arrDislike.push(element.bookData)
+            } else  arrWatch.push(element.bookData)
+        });
+
+        resolve({
+            erroCode: 0,
+            mess: "Lấy dữ liệu thành công",
+            data: {
+                like: arrLike,
+                dislike: arrDislike,
+                arrWatch: arrWatch
+            }
+        })
+    
+    } catch (error) {
+        console.log("error", error)
+        reject(error)
+    }
+})
+
+// top category recomment user
+const getTopCategoryUser = (userId) => new Promise(async (resolve, reject) => {
+    try {
+        const interaction = await db.Interaction.findAll(
+            {
+                where: {
+                    userId: userId,
+                    [Op.or]: [
+                      { reactionId: 1 },
+                      { reactionId: 2 }
+                    ]
+                },
+                include: [
+                    {
+                        model: db.Book,
+                        as: "bookData",
+                        attributes: ["categoryId"]
+                    },
+                ]
+            }
+        );
+
+        const arrCategory = []
+        interaction.forEach((e) => {
+            if(!arrCategory.includes(e.bookData.categoryId)) {
+                arrCategory.push(e.bookData.categoryId)
+            }
+        })
+
+        resolve({
+            erroCode: 0,
+            mess: "Lấy dữ liệu thành công",
+            data: arrCategory
+        })
+    
+    } catch (error) {
+        console.log("error", error)
+        reject(error)
+    }
+})
+
 const getPercentAll = () => new Promise(async (resolve, reject) => {
     try {
         const likeQuantity = db.QuantityInteraction.sum("likeQuantity")
@@ -107,6 +193,7 @@ const getPercentAll = () => new Promise(async (resolve, reject) => {
 
 module.exports = {
     getTopInteraction,
-    getPercentAll
-
+    getPercentAll,
+    getTopInteractionUser,
+    getTopCategoryUser
 }

@@ -12,6 +12,32 @@ const getTopInteraction = async (req, res) => {
     }
 }
 
+const getTopInteractionUser = async (req, res) => {
+    try {
+        const userId =  req.params.userId;
+        const response = await recoment.getTopInteractionUser(userId)
+        return res.status(200).json(response) 
+    } catch (error) {
+        return res.status(500).json({
+            errCode: 1,
+            mess: "Server Error"
+        })
+    }
+}
+
+const getTopCategoryUser = async (req, res) => {
+    try {
+        const userId =  req.params.userId;
+        const response = await recoment.getTopCategoryUser(userId)
+        return res.status(200).json(response) 
+    } catch (error) {
+        return res.status(500).json({
+            errCode: 1,
+            mess: "Server Error"
+        })
+    }
+}
+
 const getPercentAll = async (req, res) => {
     try {
         const response = await recoment.getPercentAll()
@@ -26,5 +52,7 @@ const getPercentAll = async (req, res) => {
 
 module.exports = {
     getTopInteraction,
-    getPercentAll
+    getTopInteractionUser,
+    getPercentAll,
+    getTopCategoryUser
 }
