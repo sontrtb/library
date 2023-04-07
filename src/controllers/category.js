@@ -31,4 +31,20 @@ const create = async (req, res) => {
     }
 }
 
-module.exports = {getAll, create}
+const informationCategory = async (req, res) => {
+    try {
+        const response = await category.informationCategory()
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            errCode: 1,
+            mess: "Server Error"
+        })
+    }
+}
+
+module.exports = {
+    getAll,
+    create,
+    informationCategory
+}
