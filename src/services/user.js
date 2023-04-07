@@ -17,4 +17,23 @@ const getUser = (userId) => new Promise(async (resolve, reject) => {
     }
 })
 
-module.exports = {getUser}
+const getListUser = () => new Promise(async (resolve, reject) => {
+    try {
+        const listUser = await db.User.findAll();
+
+        resolve({
+            erroCode: 1,
+            mess: "Danh sách người dùng",
+            data: listUser.map(e => {
+                return {
+                    id: e.id,
+                    name: e.name
+                }
+            })
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
+module.exports = {getUser, getListUser}
