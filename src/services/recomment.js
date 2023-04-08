@@ -154,10 +154,16 @@ const getTopCategoryUser = (userId) => new Promise(async (resolve, reject) => {
             }
         })
 
+        const dataRes = await Promise.all(arrCategory.map(item => 
+            db.Category.findByPk(item, {
+                attributes: ["id", "name"]
+            })
+        ))
+
         resolve({
             erroCode: 0,
             mess: "Lấy dữ liệu thành công",
-            data: arrCategory
+            data: dataRes
         })
     
     } catch (error) {
@@ -175,8 +181,8 @@ const getPercentAll = () => new Promise(async (resolve, reject) => {
         const allQuantity = await Promise.all([likeQuantity, dislikeQuantity, watchQuantity])
 
         const dataConvert = {
-            percentLikeWatch: allQuantity[0]/allQuantity[3] * 100,
-            percentDislikeWatch: allQuantity[1]/allQuantity[3] * 100,
+            percentLikeWatch: allQuantity[0]/allQuantity[2] * 100,
+            percentDislikeWatch: allQuantity[1]/allQuantity[2] * 100,
         }
 
         resolve({
