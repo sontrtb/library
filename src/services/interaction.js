@@ -3,10 +3,13 @@ const db = require("../models")
 const create = (data) => new Promise(async(resolve, reject) => {
     const {reactionId, bookId, userId} = data;
     try {
+        const bookInfor = await db.Book.findByPk(bookId);
+
         const interaction = await db.Interaction.create({
             reactionId: reactionId,
             bookId: bookId,
             userId: userId,
+            categoryId: bookInfor.categoryId,
         })
 
         const reactionConvert = () => {
@@ -38,6 +41,7 @@ const create = (data) => new Promise(async(resolve, reject) => {
             data: interaction
         })
     } catch (error) {
+        console.log("error", error)
         reject(error)
     }
 })

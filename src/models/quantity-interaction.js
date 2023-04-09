@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       QuantityInteraction.belongsTo(models.Book, {foreignKey: "bookId", targetKey: "id", as: "bookData"})
+      QuantityInteraction.belongsTo(models.Category, {foreignKey: "categoryId", targetKey: "id", as: "categoryData"});
     }
   }
   QuantityInteraction.init({
@@ -18,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     watchQuantity: DataTypes.INTEGER,
     dislikeQuantity: DataTypes.INTEGER,
     likeQuantity: DataTypes.INTEGER,
+    categoryId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'QuantityInteraction',

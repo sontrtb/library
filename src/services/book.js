@@ -105,6 +105,7 @@ const getInteraction = (id) => new Promise(async (resolve, reject) => {
 
 const create = (data) => new Promise(async(resolve, reject) => {
     const {title, image, content, categoryId, introduce} = data;
+
     try {
         const bookInsert = await db.Book.create({
             title: title,
@@ -115,7 +116,8 @@ const create = (data) => new Promise(async(resolve, reject) => {
         })
 
         await db.QuantityInteraction.create({
-            bookId: bookInsert.dataValues.id
+            bookId: bookInsert.dataValues.id,
+            categoryId: categoryId
         })
 
         resolve({

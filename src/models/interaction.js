@@ -13,12 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       Interaction.belongsTo(models.Reaction, {foreignKey: "reactionId", targetKey: "id", as: "reactionData"});
       Interaction.belongsTo(models.Book, {foreignKey: "bookId", targetKey: "id", as: "bookData"});
       Interaction.belongsTo(models.User, {foreignKey: "userId", targetKey: "id", as: "userData"});
+      Interaction.belongsTo(models.Category, {foreignKey: "categoryId", targetKey: "id", as: "categoryData"});
     }
   }
   Interaction.init({
     reactionId: DataTypes.INTEGER,
     bookId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    categoryId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Interaction',

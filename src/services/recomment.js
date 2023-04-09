@@ -197,9 +197,109 @@ const getPercentAll = () => new Promise(async (resolve, reject) => {
     }
 })
 
+const getPercentInteractionCategory = () => new Promise(async (resolve, reject) => {
+    try {
+        const categories = await db.Category.findAll();
+
+        const queryData =  categories.map((category) => {
+            const likeQuantity = db.QuantityInteraction.sum("likeQuantity", {
+                where: {
+                    categoryId: category.id
+                }
+            })
+            const dislikeQuantity = db.QuantityInteraction.sum("dislikeQuantity", {
+                where: {
+                    categoryId: category.id
+                }
+            })
+            const watchQuantity = db.QuantityInteraction.sum("watchQuantity", {
+                where: {
+                    categoryId: category.id
+                }
+            })
+        
+            return Promise.all([likeQuantity, dislikeQuantity, watchQuantity])
+        })
+
+        const data = await Promise.all(queryData)
+
+        const dataRes = data.map((e, index) => {
+            return {
+                name: categories[index].name,
+                likeQuantity: e[0],
+                dislikeQuantity: e[1],
+                watchQuantity: e[2]
+            }
+        })
+       
+        resolve({
+            erroCode: 0,
+            mess: "Lấy dữ liệu thành công",
+            data: dataRes
+        })
+    
+    } catch (error) {
+        console.log("error", error)
+        reject(error)
+    }
+})
+
+const getPercentUserCategory = () => new Promise(async (resolve, reject) => {
+    try {
+        const categories = await db.Category.findAll();
+        const users = await db.User.findAll();
+
+        const queryData =  categories.map((category) => {
+            const interaction = db.Interaction.findAll(
+                {
+                    where: { categoryId: category.id },
+                }
+            )
+
+            return interaction;
+        })
+
+        const data = await Promise.all(queryData)
+
+        const dataRes = []
+        data.forEach((item, index) => {
+            const userLikeTmp = [];
+            const userDislikeTmp = [];
+            item.forEach(e => {
+                if(e.reactionId === 1 && !userLikeTmp.includes(e.userId)) {
+                    userLikeTmp.push(e.userId)
+                }
+                if(e.reactionId === 2 && !userDislikeTmp.includes(e.userId)) {
+                    userDislikeTmp.push(e.userId)
+                }
+            })
+
+            dataRes.push({
+                name: categories[index].name,
+                quantityUserLike: userLikeTmp.length,
+                quantityUserDislike: userDislikeTmp.length,
+                quantityUser: users.length
+            })
+        })
+       
+        resolve({
+            erroCode: 0,
+            mess: "Lấy dữ liệu thành công",
+            data: dataRes
+        })
+    
+    } catch (error) {
+        console.log("error", error)
+        reject(error)
+    }
+})
+
+
 module.exports = {
     getTopInteraction,
     getPercentAll,
     getTopInteractionUser,
-    getTopCategoryUser
+    getTopCategoryUser,
+    getPercentInteractionCategory,
+    getPercentUserCategory
 }
